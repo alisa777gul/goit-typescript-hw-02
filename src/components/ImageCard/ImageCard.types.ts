@@ -1,5 +1,4 @@
 export type ImageCardProps = {
-  alt_description: string,
-  urls: {small:string} 
-}
-export { };
+  alt_description: string;
+  urls: { small: string };
+};

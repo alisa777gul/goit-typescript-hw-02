@@ -5,7 +5,7 @@ import { MdPerson } from 'react-icons/md';
 import { CiCalendarDate } from 'react-icons/ci';
 import { ImageModalProps } from './ImageModal.types'
 
-export default function ImageModal({ image, isOpen, onRequestClose, style }: ImageModalProps) {
+export default function ImageModal({ image, isOpen, onRequestClose, style }: ImageModalProps):JSX.Element|null {
   if (!image) return null;
   return (
     <Modal appElement={document.getElementById('root') as HTMLElement} isOpen={isOpen} onRequestClose={onRequestClose} style={style}>

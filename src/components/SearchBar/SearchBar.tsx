@@ -6,14 +6,14 @@ import { SearchBarProps } from './SearchBar.types';
 
 
 
-export default function SearchBar({ onSubmit }:SearchBarProps) {
+export default function SearchBar({ onSubmit }: SearchBarProps):JSX.Element {
   const [query, setQuery] = useState<string>('');
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>):void => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>):void|string => {
     event.preventDefault();
     console.log('Submit handler triggered');
     if (!query.trim()) {

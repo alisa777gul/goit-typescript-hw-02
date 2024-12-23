@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 export default function ErrorMessage({ 
   message = 'Something went wrong 😞', 
   showToast = false 
-}: ErrorMessageProps) {
+}: ErrorMessageProps): JSX.Element {
   if (showToast) {
     toast.error(message, {
       duration: 4000,

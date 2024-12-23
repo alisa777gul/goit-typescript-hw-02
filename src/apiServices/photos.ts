@@ -11,9 +11,15 @@ export type Props = {
   perPage: number;
 };
 
-const getPhotos = async <T>( { query, page, perPage }: Props): Promise<T> => {
+export type ApiResponse<T> = {
+  results: T[];
+  total: number;
+  total_pages: number;
+};
+
+const getPhotos = async <T>( { query, page, perPage }: Props): Promise<ApiResponse<T>> => {
   try {
-    const { data } = await axios.get<T>('search/photos', {
+    const { data } = await axios.get<ApiResponse<T>>('search/photos', {
       params: {
         query,
         page,

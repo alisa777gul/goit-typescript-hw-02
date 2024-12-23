@@ -5,7 +5,7 @@ export type Image = {
     small: string;
     regular: string;
   };
-  alt_description: string;
+  alt_description?: string;
   user: { name: string };
   created_at: string;
   likes: number;

@@ -10,9 +10,10 @@ import { Toaster } from 'react-hot-toast';
 import ImageModal from './ImageModal/ImageModal';
 import { Image } from './imageGallery/ImageGallery.types';
 import { ApiResponse } from './App.types';
+import ReactModal from 'react-modal';
 
 
-const customStyles = {
+const customStyles:ReactModal.Styles = {
   content: {
     top: '50%',
     left: '50%',
@@ -25,7 +26,7 @@ const customStyles = {
 
 
 
-function App() {
+function App():JSX.Element {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [errord, setError] = useState<boolean|null>(null);
@@ -35,7 +36,7 @@ function App() {
   const [isEmpty, setIsEmpty] = useState<boolean>(false);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<Image|null>(null);
-  const perPage = 10;
+  const perPage:number = 10;
 
   useEffect(() => {
     if (!query) return;

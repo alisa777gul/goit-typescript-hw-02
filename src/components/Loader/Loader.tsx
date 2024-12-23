@@ -3,7 +3,7 @@ import { DNA } from 'react-loader-spinner';
 
 
 
-export default function Loader() {
+export default function Loader():JSX.Element {
   return (
     <div className={style.loader}>
       <DNA

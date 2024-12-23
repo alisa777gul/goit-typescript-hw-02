@@ -3,7 +3,7 @@ import style from './ImageGallery.module.css';
 import { ImageGalleryProps } from './ImageGallery.types'
 
 
-export default function ImageGallery({ images, openModal }: ImageGalleryProps) {
+export default function ImageGallery({ images, openModal }: ImageGalleryProps):JSX.Element {
   return (
     <ul className={style.list}>
       {images.map((image) => (
