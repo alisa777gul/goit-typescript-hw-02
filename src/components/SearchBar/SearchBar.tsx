@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { IoMdSearch } from 'react-icons/io';
 import style from './SearchBar.module.css';
 import toast from 'react-hot-toast';
+import { SearchBarProps } from './SearchBar.types';
 
-export default function SearchBar({ onSubmit }) {
-  const [query, setQuery] = useState('');
 
-  const handleChange = e => {
-    setQuery(e.target.value);
+
+export default function SearchBar({ onSubmit }:SearchBarProps) {
+  const [query, setQuery] = useState<string>('');
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     console.log('Submit handler triggered');
     if (!query.trim()) {
       console.log('no entry');

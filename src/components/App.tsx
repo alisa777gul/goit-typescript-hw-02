@@ -1,15 +1,17 @@
 import './App.css';
-import SearchBar from '../components/SearchBar/SearchBar';
+import SearchBar from './SearchBar/SearchBar';
 import ImageGallery from './imageGallery/ImageGallery';
-import LoadMore from '../components/LoadMore/LoadMore';
-import Loader from '../components/Loader/Loader';
-import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
+import LoadMore from './LoadMore/LoadMore';
+import Loader from './Loader/Loader';
+import ErrorMessage from './ErrorMessage/ErrorMessage';
 import getPhotos from '../apiServices/photos';
 import { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import ImageModal from './ImageModal/ImageModal';
+import { Image } from './imageGallery/ImageGallery.types';
+import { ApiResponse } from './App.types';
 
-//o
+
 const customStyles = {
   content: {
     top: '50%',
@@ -21,26 +23,28 @@ const customStyles = {
   },
 };
 
+
+
 function App() {
-  const [query, setQuery] = useState('');
-  const [page, setPage] = useState(1);
-  const [errord, setError] = useState(null);
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [query, setQuery] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const [errord, setError] = useState<boolean|null>(null);
+  const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Image|null>(null);
   const perPage = 10;
 
   useEffect(() => {
     if (!query) return;
 
-    const fetchImages = async () => {
+    const fetchImages = async ():Promise<void> => {
       setLoading(true);
 
       try {
-        const { results, total } = await getPhotos(query, page, perPage);
+        const { results, total }: ApiResponse = await getPhotos({ query, page, perPage });
 
         setImages(prevImages => [...prevImages, ...results]);
         setIsVisible(page * perPage < total);
@@ -57,17 +61,19 @@ function App() {
     fetchImages();
   }, [page, query]);
 
-  const openModal = image => {
-    setSelectedImage(image);
-    setIsOpen(true);
+  const openModal = (image:Image):void=> {
+    if (!modalIsOpen) {
+      setSelectedImage(image);
+      setIsOpen(true);
+    }
   };
 
-  const closeModal = () => {
+  const closeModal = ():void => {
     setIsOpen(false);
     setSelectedImage(null);
   };
 
-  const handleSubmit = value => {
+  const handleSubmit = (value:string):void => {
     setQuery(value);
     setPage(1);
     setImages([]);
@@ -76,7 +82,7 @@ function App() {
     setIsVisible(false);
   };
 
-  const handleLoad = () => {
+  const handleLoad = ():void => {
     setPage(prevPage => prevPage + 1);
   };
 
